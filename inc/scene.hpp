@@ -2,9 +2,9 @@
 
 #include "properties.hpp"
 
+#include <array>
 #include <map>
 #include <string>
-#include <vector>
 
 enum class TileEnum {
     GRASS,
@@ -16,12 +16,17 @@ std::unordered_map<char, TileEnum> tilesCode = {{'+', TileEnum::GRASS},
 
 class Map {
 public:
-    Map(){}
     Map(std::string mapDir);
 
     void setMapDir(std::string mapDir) { mapDir_ = mapDir; }
     void drawMap(sf::RenderTarget target);
 private:
-    std::vector<std::vector<sf::RectangleShape>> level_;
+    std::array<std::array<Tile, 20>, 20> level_;
     std::string mapDir_;
+};
+class Tile {
+public:
+    Tile(TileEnum code);
+private:
+    sf::RectangleShape shape_;
 };
