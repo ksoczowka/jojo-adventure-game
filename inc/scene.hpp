@@ -22,6 +22,6 @@ public:
     void setMapDir(std::string mapDir) { mapDir_ = mapDir; }
     void drawMap(sf::RenderTarget target);
 private:
-    std::vector<std::vector<sf::RectangleShape>> map_;
+    std::vector<std::vector<sf::RectangleShape>> level_;
     std::string mapDir_;
 };
