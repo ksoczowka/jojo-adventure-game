@@ -16,6 +16,7 @@ std::unordered_map<char, TileEnum> tilesCode = {{'+', TileEnum::GRASS},
 
 class Map {
 public:
+    Map(){}
     Map(std::string mapDir);
 
     void setMapDir(std::string mapDir) { mapDir_ = mapDir; }
@@ -26,6 +27,7 @@ private:
 };
 class Tile {
 public:
+    Tile(){}
     Tile(TileEnum code);
 private:
     sf::RectangleShape shape_;
