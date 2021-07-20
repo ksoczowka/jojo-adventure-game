@@ -2,33 +2,38 @@
 
 #include "properties.hpp"
 
-#include <array>
+#include <fstream>
 #include <map>
 #include <string>
+#include <vector>
 
 enum class TileEnum {
+    ERROR,
     GRASS,
     WALL
 };
 
-std::unordered_map<char, TileEnum> tilesCode = {{'+', TileEnum::GRASS},
-                                                {'-', TileEnum::WALL}};
+const std::unordered_map<char, TileEnum> tilesCode = {{'+', TileEnum::GRASS},
+                                                      {'-', TileEnum::WALL}};
+std::vector<std::string> readMap(std::ifstream& is);
+TileEnum findCode(char tile);
 
+class Tile {
+public:
+    Tile(){}
+    Tile(TileEnum code);
+
+    sf::RectangleShape& getShape() { return shape_; }
+private:
+    sf::RectangleShape shape_;
+};
 class Map {
 public:
     Map(){}
     Map(std::string mapDir);
 
-    void setMapDir(std::string mapDir) { mapDir_ = mapDir; }
-    void drawMap(sf::RenderTarget target);
+    void drawMap(sf::RenderTarget* target);
 private:
-    std::array<std::array<Tile, 20>, 20> level_;
+    std::vector<std::vector<Tile>> level_;
     std::string mapDir_;
-};
-class Tile {
-public:
-    Tile(){}
-    Tile(TileEnum code);
-private:
-    sf::RectangleShape shape_;
 };

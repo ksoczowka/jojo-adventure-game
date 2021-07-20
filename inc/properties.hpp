@@ -7,6 +7,6 @@ using sfKb = sf::Keyboard;
 using sfCol = sf::Color;
 
 namespace prop {
-    auto screenWidth = sf::VideoMode::getDesktopMode().width;    
-    auto screenHeight = sf::VideoMode::getDesktopMode().height;  
+    const auto screenWidth = sf::VideoMode::getDesktopMode().width;    
+    const auto screenHeight = sf::VideoMode::getDesktopMode().height;  
 }
