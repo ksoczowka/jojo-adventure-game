@@ -1,5 +1,4 @@
 #include "../inc/player.hpp"
-
 void Player::move(DirEnum direction) {
     switch(direction) {
         case DirEnum::LEFT:

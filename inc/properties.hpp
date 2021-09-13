@@ -8,5 +8,6 @@ using sfCol = sf::Color;
 
 namespace prop {
     const auto screenWidth = sf::VideoMode::getDesktopMode().width;    
-    const auto screenHeight = sf::VideoMode::getDesktopMode().height;  
+    const auto screenHeight = sf::VideoMode::getDesktopMode().height;
+    const auto tileSize = screenHeight / 20;
 }

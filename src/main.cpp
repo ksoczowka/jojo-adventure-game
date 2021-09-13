@@ -2,11 +2,12 @@
 #include "../inc/scene.hpp"
 #include "../inc/properties.hpp"
 
+#include <chrono>
 #include <iostream>
+#include <queue>
 
 #define KEY(KEY_CODE) sfKb::isKeyPressed(KEY_CODE)
-
-int main() {  
+int main() {
     sf::ContextSettings settings;
     settings.antialiasingLevel = 8;
     sf::RenderWindow window(sf::VideoMode(prop::screenWidth, prop::screenHeight, 32),
@@ -16,9 +17,10 @@ int main() {
     sfEv event;
 
     Player player;
-
     Map map("../level.txt");
 
+    std::queue<DirEnum> movementQueue;
+    bool pressed = false;
     while(window.isOpen()) {
         while(window.pollEvent(event)) {
             if(event.type = sfEv::Closed) {
@@ -26,22 +28,34 @@ int main() {
             } else if(event.type = sfEv::KeyPressed) {
                 if(KEY(sfKb::Escape)) {
                     window.close(); 
-                } else if(KEY(sfKb::A)) {
-                    player.move(DirEnum::LEFT);
-                } else if(KEY(sfKb::D)) {
-                    player.move(DirEnum::RIGHT);
-                } else if(KEY(sfKb::W)) {
-                    player.move(DirEnum::UP);
-                } else if(KEY(sfKb::S)) {
-                    player.move(DirEnum::DOWN);
+                }
+                if(!pressed) {
+                    if(KEY(sfKb::A)) {
+                        movementQueue.push(DirEnum::LEFT);
+                        pressed = true;
+                    } else if(KEY(sfKb::D)) {
+                        movementQueue.push(DirEnum::RIGHT);
+                        pressed = true;
+                    } else if(KEY(sfKb::W)) {
+                        movementQueue.push(DirEnum::UP);
+                        pressed = true;
+                    } else if(KEY(sfKb::S)) {
+                        movementQueue.push(DirEnum::DOWN);
+                        pressed = true;
+                    }
                 }
             }
+        }
+        pressed = false;
+        while(!movementQueue.empty()) {
+            player.move(movementQueue.front());
+            auto && temp = movementQueue.front();
+            movementQueue.pop();
         }
         window.clear(sfCol::Black);
         map.drawMap(&window);
         window.draw(player.shape_);
         window.display();
     }
-
     return 0;
 }

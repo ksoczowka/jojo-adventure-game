@@ -13,7 +13,7 @@ Map::Map(std::string mapDir) {
     for(int lineNum = 0; lineNum < 20; lineNum++) {
         for (int tileNum = 0; tileNum < 20; tileNum++) {
             level_.at(lineNum).at(tileNum) = Tile(findCode(currMap.at(lineNum).at(tileNum)));
-            level_.at(lineNum).at(tileNum).getShape().setPosition(sf::Vector2f((tileNum * (prop::screenHeight / 20)), (lineNum * (prop::screenHeight / 20))));
+            level_.at(lineNum).at(tileNum).getShape().setPosition(sf::Vector2f((tileNum * prop::tileSize), (lineNum * prop::tileSize)));
         }
     }
 }
