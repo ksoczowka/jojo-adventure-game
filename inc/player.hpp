@@ -20,7 +20,7 @@ public:
     sf::RectangleShape shape_;
 private:
     unsigned short int moveSpeed_;
-    unsigned short int HP_;
+    short int HP_;
     unsigned int attackPower_;
     unsigned int boostPower_;
 };
