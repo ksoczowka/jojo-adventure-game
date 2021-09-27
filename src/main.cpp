@@ -49,7 +49,6 @@ int main() {
         pressed = false;
         while(!movementQueue.empty()) {
             player.move(movementQueue.front());
-            auto && temp = movementQueue.front();
             movementQueue.pop();
         }
         window.clear(sfCol::Black);
