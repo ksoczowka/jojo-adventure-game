@@ -9,10 +9,13 @@ Map::Map(std::string mapDir) {
     std::vector<std::string> currMap = readMap(mapFileReader);
     for(int i = 0; i < 20; i++) {
         level_.push_back(std::vector<Tile>(20));
+        tileTextures_.push_back(std::vector<sf::Texture>(20));
     }
     for(int lineNum = 0; lineNum < 20; lineNum++) {
         for (int tileNum = 0; tileNum < 20; tileNum++) {
             level_.at(lineNum).at(tileNum) = Tile(findCode(currMap.at(lineNum).at(tileNum)));
+            tileTextures_.at(lineNum).at(tileNum).loadFromFile(level_.at(lineNum).at(tileNum).getPath());
+            level_.at(lineNum).at(tileNum).getShape().setTexture(&tileTextures_.at(lineNum).at(tileNum));
             level_.at(lineNum).at(tileNum).getShape().setPosition(sf::Vector2f((tileNum * prop::tileSize), (lineNum * prop::tileSize)));
         }
     }
@@ -24,17 +27,18 @@ void Map::drawMap(sf::RenderTarget* target) {
         }
     }
 }
-Tile::Tile(TileEnum code) {
-    shape_.setSize(sf::Vector2f(prop::screenHeight / 20, prop::screenHeight / 20));
+Tile::Tile(TileEnum code) :
+    shape_(sf::Vector2f(prop::screenHeight / 20, prop::screenHeight / 20)) {
     switch(code) {
         case TileEnum::ERROR:
             shape_.setFillColor(sfCol(20, 0, 0));
             break;
         case TileEnum::GRASS:
-            shape_.setFillColor(sfCol::Green);
+            txtPath_ = "./sprites/grass.png";
             break;
         case TileEnum::WALL:
-            shape_.setFillColor(sfCol(100, 100, 100));
+            txtPath_ = "./sprites/wall.png";
+            break;
     }
 }
 TileEnum findCode(char tile) {
