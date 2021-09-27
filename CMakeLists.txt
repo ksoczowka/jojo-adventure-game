@@ -11,6 +11,7 @@ set(SRC_LIST
 )
 
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/level.txt DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/sprites/ DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/sprites/)
 add_executable(${PROJECT_NAME} src/main.cpp)
 add_library(lib STATIC ${SRC_LIST} inc/properties.hpp)
 target_link_libraries(${PROJECT_NAME} lib sfml-graphics sfml-audio)
